@@ -25,5 +25,5 @@
     ],
     'post_load': 'post_load',
     'uninstall_hook': 'uninstall_hook',
-    'installable': True,
+    'installable': False,
 }
