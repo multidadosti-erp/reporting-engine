@@ -16,4 +16,7 @@
         'views/ir_actions_report.xml',
         'data/config_parameter.xml',
     ],
+    'demo': [
+    ],
+    "installable": False,
 }
