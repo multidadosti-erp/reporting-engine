@@ -10,7 +10,7 @@
     "author": "Grupo ESOC Ingeniería de Servicios, "
               "Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "installable": True,
+    "installable": False,
     "application": False,
     "summary": "Allow to generate XML reports",
     "depends": [

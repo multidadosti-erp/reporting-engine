@@ -20,5 +20,5 @@
     "demo": [
         "demo/test_report_field_length.xml"
     ],
-    "installable": True,
+    "installable": False,
 }

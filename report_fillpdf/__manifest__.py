@@ -28,5 +28,5 @@
     'demo': [
         'demo/report.xml',
     ],
-    'installable': True,
+    "installable": False,
 }
