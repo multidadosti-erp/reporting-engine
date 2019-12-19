@@ -25,5 +25,5 @@
         'views/report_py3o.xml',
         'demo/report_py3o.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
