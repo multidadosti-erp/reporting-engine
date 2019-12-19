@@ -27,5 +27,5 @@
         'views/py3o_server.xml',
         'views/py3o_pdf_options.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
