@@ -21,7 +21,7 @@
     'demo': [
         'demo/report_async_demo.xml',
     ],
-    'installable': True,
+    'installable': False,
     'maintainers': ['kittiu'],
     'development_status': 'Beta',
 }
