@@ -20,7 +20,7 @@
     "demo": [
         "demo/report.xml"
     ],
-    "intallable": True,
+    "installable": False,
     'external_dependencies': {
         'python': [
             'PyPDF2',
