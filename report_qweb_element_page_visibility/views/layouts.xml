@@ -34,18 +34,23 @@
                         var operations = {
                             'not-first-page': function (elt) {
                                 elt.style.visibility = (vars.sitepage === vars.frompage) ? "hidden" : "visible";
+                                elt.style.display = (vars.sitepage === vars.frompage) ? "none" : "initial";
                             },
                             'not-last-page': function (elt) {
                                 elt.style.visibility = (vars.sitepage === vars.sitepages) ? "hidden" : "visible";
+                                elt.style.display = (vars.sitepage === vars.sitepages) ? "none" : "initial";
                             },
                             'not-last-beforelast-page': function (elt) {
                                 elt.style.visibility = (vars.sitepage === vars.sitepages || parseInt(vars.sitepage) === parseInt(vars.sitepages)-1) ? "hidden" : "visible";
+                                elt.style.display = (vars.sitepage === vars.sitepages || parseInt(vars.sitepage) === parseInt(vars.sitepages)-1) ? "none" : "initial";
                             },
                             'first-page': function (elt) {
                                 elt.style.visibility = (vars.sitepage === vars.frompage) ? "visible" : "hidden";
+                                elt.style.display = (vars.sitepage === vars.frompage) ? "initial" : "none";
                             },
                             'last-page': function (elt) {
                                 elt.style.visibility = (vars.sitepage === vars.sitepages) ? "visible" : "hidden";
+                                elt.style.display = (vars.sitepage === vars.sitepages) ? "initial" : "none";
                             },
                         };
                         for (var klass in operations) {
