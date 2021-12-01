@@ -18,4 +18,5 @@
     "demo": ["demo/demo_dashboard_altair.xml"],
 
     "maintainers": ["etobella"],
+    "installable": False
 }
