@@ -19,4 +19,5 @@
     ],
     'maintainers': ['Tardo'],
     'development_status': 'Beta',
+    "installable": False,
 }

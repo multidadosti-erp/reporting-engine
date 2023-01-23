@@ -22,4 +22,5 @@
     ],
     "demo": ["demo/demo_dashboard.xml"],
     "maintainers": ["etobella"],
+    'installable': False,
 }

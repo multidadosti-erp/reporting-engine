@@ -27,8 +27,16 @@ class AbstractReportXslx(models.AbstractModel):
         self.format_amount = None
         self.format_percent_bold_italic = None
 
+        # Type of Report for general use
+        self.type_of_report = None
+
     def get_workbook_options(self):
         return {'constant_memory': True}
+
+    def _get_type_of_report(self, report):
+        """ Set type of report.
+        """
+        return 'standard'
 
     def generate_xlsx_report(self, workbook, data, objects):
         report = objects
@@ -37,9 +45,13 @@ class AbstractReportXslx(models.AbstractModel):
 
         self._define_formats(workbook)
 
+        # Defines the report type for general use
+        self.type_of_report = self._get_type_of_report(report)
+
         report_name = self._get_report_name(report)
         report_footer = self._get_report_footer()
         filters = self._get_report_filters(report)
+
         self.columns = self._get_report_columns(report)
         self.sub_filter_columns = self._get_report_sub_filter_columns(report)
         self.workbook = workbook
@@ -263,11 +275,10 @@ class AbstractReportXslx(models.AbstractModel):
                     self.row_pos, col_pos, float(value), cell_format
                 )
             elif cell_type == 'amount_currency':
-                if line_object.currency_id:
-                    format_amt = self._get_currency_amt_format(line_object)
-                    self.sheet.write_number(
-                        self.row_pos, col_pos, float(value), format_amt
-                    )
+                format_amt = self._get_currency_amt_format(line_object)
+                self.sheet.write_number(
+                    self.row_pos, col_pos, float(value), format_amt
+                )
             elif cell_type == 'date' and value:
                 value = value.strftime('%d/%m/%Y')
                 self.sheet.write_string(self.row_pos, col_pos, value or '')
@@ -361,25 +372,31 @@ class AbstractReportXslx(models.AbstractModel):
         self.row_pos += 1
 
     def _get_currency_amt_format(self, line_object):
-        """ Return amount format specific for each currency. """
-        if hasattr(line_object, 'account_group_id') and \
-                line_object.account_group_id:
+        """ Return amount format specific for each currency.
+        """
+        if hasattr(line_object, 'account_group_id') and line_object.account_group_id:
             format_amt = getattr(self, 'format_amount_bold')
             field_prefix = 'format_amount_bold'
         else:
             format_amt = getattr(self, 'format_amount')
             field_prefix = 'format_amount'
-        if line_object.currency_id:
-            field_name = \
-                '%s_%s' % (field_prefix, line_object.currency_id.name)
+
+        if hasattr(line_object, 'currency_id') and line_object.currency_id:
+            currency_id = line_object.currency_id
+        else:
+            currency_id = self.env.user.company_id.currency_id
+
+        if currency_id:
+            field_name = '%s_%s' % (field_prefix, currency_id.name)
+
             if hasattr(self, field_name):
                 format_amt = getattr(self, field_name)
             else:
                 format_amt = self.workbook.add_format()
                 setattr(self, 'field_name', format_amt)
-                format_amount = \
-                    '#,##0.' + ('0' * line_object.currency_id.decimal_places)
+                format_amount = '#,##0.' + ('0' * currency_id.decimal_places)
                 format_amt.set_num_format(format_amount)
+
         return format_amt
 
     def _get_currency_amt_header_format(self, line_object):

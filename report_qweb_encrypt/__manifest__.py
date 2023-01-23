@@ -16,6 +16,6 @@
         "views/ir_actions_report.xml",
         "templates/assets.xml"
     ],
-    "installable": True,
+    "installable": False,
     "maintainers": ["kittiu"],
 }
