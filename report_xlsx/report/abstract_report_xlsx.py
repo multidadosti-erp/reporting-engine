@@ -215,18 +215,9 @@ class AbstractReportXslx(models.AbstractModel):
                 self.sheet.write_string(
                     self.row_pos, col_pos + 1, value.name or '', self.format_right)
             elif cell_type == 'string':
-                if hasattr(line_object, 'account_group_id') and \
-                        line_object.account_group_id:
-                    self.sheet.write_string(self.row_pos, col_pos + 1, value or '',
-                                            self.format_bold)
-                else:
-                    self.sheet.write_string(self.row_pos, col_pos + 1, value or '')
+                self.sheet.write_string(self.row_pos, col_pos + 1, value or '')
             elif cell_type == 'amount':
-                if hasattr(line_object, 'account_group_id') and \
-                        line_object.account_group_id:
-                    cell_format = self.format_amount_bold
-                else:
-                    cell_format = self.format_amount
+                cell_format = self.format_amount
                 self.sheet.write_number(
                     self.row_pos, col_pos + 1, float(value), cell_format
                 )
@@ -259,18 +250,9 @@ class AbstractReportXslx(models.AbstractModel):
                     value = dict(line_object._fields[column['field']].selection).get(value)
                 except AttributeError:
                     pass
-                if hasattr(line_object, 'account_group_id') and \
-                        line_object.account_group_id:
-                    self.sheet.write_string(self.row_pos, col_pos, value or '',
-                                            self.format_bold)
-                else:
-                    self.sheet.write_string(self.row_pos, col_pos, value or '')
+                self.sheet.write_string(self.row_pos, col_pos, value or '')
             elif cell_type == 'amount':
-                if hasattr(line_object, 'account_group_id') and \
-                        line_object.account_group_id:
-                    cell_format = self.format_amount_bold
-                else:
-                    cell_format = self.format_amount
+                cell_format = self.format_amount
                 self.sheet.write_number(
                     self.row_pos, col_pos, float(value), cell_format
                 )
@@ -374,12 +356,8 @@ class AbstractReportXslx(models.AbstractModel):
     def _get_currency_amt_format(self, line_object):
         """ Return amount format specific for each currency.
         """
-        if hasattr(line_object, 'account_group_id') and line_object.account_group_id:
-            format_amt = getattr(self, 'format_amount_bold')
-            field_prefix = 'format_amount_bold'
-        else:
-            format_amt = getattr(self, 'format_amount')
-            field_prefix = 'format_amount'
+        format_amt = getattr(self, 'format_amount')
+        field_prefix = 'format_amount'
 
         if hasattr(line_object, 'currency_id') and line_object.currency_id:
             currency_id = line_object.currency_id
