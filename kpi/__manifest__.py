@@ -29,5 +29,5 @@
         "images/kpi_threshold.png",
         "images/kpi_range.png",
     ],
-    'installable': True,
+    'installable': False,
 }
